@@ -1,22 +1,22 @@
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-local ball = game.Workspace:WaitForChild("Ball")  -- Assuming the ball is named "Ball"
+local ball = game.Workspace:WaitForChild("Ball")  -- Make sure the ball is correctly named
 
-local kickStrength = 50  -- How strong the kick is
-local detectionRange = 10  -- Range to detect the ball
+local kickStrength = 200  -- Strength of the "kick"
+local detectionRange = 10  -- Distance to trigger the kick when the ball is nearby
 
--- Function to check if the ball is near
+-- Function to detect ball and kick it away
 local function checkBallProximity()
     local distance = (humanoidRootPart.Position - ball.Position).magnitude
     if distance < detectionRange then
-        -- If the ball is within the range, "kick" it away
+        -- If the ball is close enough, kick it
         local direction = (ball.Position - humanoidRootPart.Position).unit
         ball.Velocity = direction * kickStrength
     end
 end
 
--- Loop to continuously check the ball's proximity
+-- Continuously check for the ball proximity
 while true do
     checkBallProximity()
     wait(0.1)  -- Check every 0.1 seconds
